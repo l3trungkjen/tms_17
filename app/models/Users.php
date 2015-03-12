@@ -44,6 +44,8 @@ class Users extends \Phalcon\Mvc\Model
 
     const STATUS_ADMIN = 0;
     const STATUS_USER = 1;
+    const ACTION_NEW = 'new';
+    const CTRL_USER = 'users';
 
     /**
      * Independent Column Mapping.

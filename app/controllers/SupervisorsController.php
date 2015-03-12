@@ -1,23 +1,16 @@
 <?php
 
-class SupervisorsController extends \Phalcon\Mvc\Controller
+class SupervisorsController extends ControllerBase
 {
 
     public function indexAction()
     {
-        if (!Users::checkPermission()) {
-            return $this->response->redirect();
-        }
         $this->view->supervisors = Supervisors::find();
-        $this->view->user = Users::findFirst($this->session->get('user_id'));
     }
 
     public function newAction()
     {
-        if (!Users::checkPermission()) {
-            return $this->response->redirect();
-        }
-        $this->view->user = Users::findFirst($this->session->get('user_id'));
+
     }
 
     public function createAction()
@@ -44,14 +37,10 @@ class SupervisorsController extends \Phalcon\Mvc\Controller
 
     public function editAction($id = '')
     {
-        if (!Users::checkPermission()) {
-            return $this->response->redirect();
-        }
         if (empty($id)) {
             return $this->response->redirect('supervisors');
         }
         $this->view->supervisor = Supervisors::findFirst($id);
-        $this->view->user = Users::findFirst($this->session->get('user_id'));
     }
 
     public function saveAction()
@@ -85,9 +74,6 @@ class SupervisorsController extends \Phalcon\Mvc\Controller
 
     public function deleteAction($id = '')
     {
-        if (!Users::checkPermission()) {
-            return $this->response->redirect();
-        }
         if (!empty($id)) {
             $supervisor = Supervisors::findFirst($id);
             if (!empty($supervisor)) {
