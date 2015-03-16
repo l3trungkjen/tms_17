@@ -1,15 +1,11 @@
 <?php
 
-class UsersController extends \Phalcon\Mvc\Controller
+class UsersController extends ControllerBase
 {
 
     public function indexAction()
     {
-        if (!Users::checkPermission()) {
-            return $this->response->redirect();
-        }
         $this->view->users = Users::find();
-        $this->view->user = Users::findFirst($this->session->get('user_id'));
     }
 
     public function newAction()
@@ -44,11 +40,7 @@ class UsersController extends \Phalcon\Mvc\Controller
 
     public function editAction($id = '')
     {
-        if (empty($id)) {
-            return $this->response->redirect('users');
-        }
         $this->view->profile = Users::findFirst($id);
-        $this->view->user = Users::findFirst($this->session->get('user_id'));
     }
 
     public function saveAction()
@@ -76,9 +68,6 @@ class UsersController extends \Phalcon\Mvc\Controller
 
     public function deleteAction($id = '')
     {
-        if (!Users::checkPermission()) {
-            return $this->response->redirect();
-        }
         if (!empty($id)) {
             $user = Users::findFirst($id);
             if (!empty($user)) {

@@ -39,6 +39,16 @@
                         </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                Tasks
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>{{ link_to('tasks/new', 'Add new') }}</li>
+                                <li>{{ link_to('tasks', 'Show all') }}</li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 Users
                                 <span class="caret"></span>
                             </a>
