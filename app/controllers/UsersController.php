@@ -40,7 +40,14 @@ class UsersController extends ControllerBase
 
     public function editAction($id = '')
     {
-        $this->view->profile = Users::findFirst($id);
+        if (empty($id)) {
+            $this->response->redirect('users');
+        }
+        $user = Users::findFirst($id);
+        if (empty($user)) {
+            return $this->response->redirect('users');
+        }
+        $this->view->profile = $user;
     }
 
     public function saveAction()

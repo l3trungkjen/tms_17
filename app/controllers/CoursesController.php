@@ -10,16 +10,8 @@ class CoursesController extends ControllerBase
 
     public function newAction()
     {
-        $arr_supervisors[''] = 'Please, Choose supervisor...';
-        foreach (Supervisors::find() as $supervisor) {
-            $arr_supervisors[$supervisor->id] = $supervisor->name;
-        }
-        $arr_subjects[''] = 'Please, Choose subject...';
-        foreach (Subjects::find() as $subject) {
-            $arr_subjects[$subject->id] = $subject->name;
-        }
-        $this->view->subjects = $arr_subjects;
-        $this->view->supervisors = $arr_supervisors;
+        $this->view->subjects = Subjects::findList();
+        $this->view->supervisors = Supervisors::findList();
     }
 
     public function createAction()
@@ -58,27 +50,15 @@ class CoursesController extends ControllerBase
     public function editAction($id = '')
     {
         if (empty($id)) {
-            return $this->redirect->response('course');
+            return $this->redirect->response('courses');
         }
         $course = Courses::findFirst($id);
-        $arr_supervisors[''] = 'Please, Choose supervisor...';
-        foreach (Supervisors::find() as $supervisor) {
-            $arr_supervisors[$supervisor->id] = $supervisor->name;
-            if ($supervisor->id == $course->supervisor_id) {
-                $this->tag->setDefault('supervisor_id', $supervisor->id);
-            }
-        }
-        $arr_subjects[''] = 'Please, choose subject...';
-        foreach (Subjects::find() as $subject) {
-            $arr_subjects[$subject->id] = $subject->name;
-            foreach ($course->coursesubjects as $course_subject) {
-                if ($subject->id !== $course_subject->subject_id) continue;
-                $this->tag->setDefault('subject_id[' . $course_subject->id . ']', $subject->id);
-            }
+        if (empty($course)) {
+            return $this->response->redirect('courses');
         }
         $this->view->course = $course;
-        $this->view->supervisors = $arr_supervisors;
-        $this->view->subjects = $arr_subjects;
+        $this->view->supervisors = Supervisors::findList();
+        $this->view->subjects = Subjects::findList();
     }
 
     public function saveAction()
