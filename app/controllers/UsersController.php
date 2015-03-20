@@ -60,6 +60,7 @@ class UsersController extends ControllerBase
                     $this->flash->error($message);
                 }
             } else {
+                $this->activities($request['id']);
                 $this->flash->success('User was edited successfully.');
             }
             return $this->dispatcher->forward(

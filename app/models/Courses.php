@@ -78,6 +78,26 @@ class Courses extends \Phalcon\Mvc\Model
                 ]
             ]
         );
+        $this->hasMany(
+            'id',
+            'EnrollmentSubjects',
+            'course_id',
+            [
+                'foreignKey' => [
+                    'action' => Relation::ACTION_CASCADE
+                ]
+            ]
+        );
+        $this->hasMany(
+            'id',
+            'Enrollments',
+            'course_id',
+            [
+                'foreignKey' => [
+                    'action' => Relation::ACTION_CASCADE
+                ]
+            ]
+        );
     }
 
 }

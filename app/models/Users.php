@@ -2,6 +2,7 @@
 
 use Phalcon\DI;
 use Phalcon\Mvc\Model\Message;
+use Phalcon\Mvc\Model\Relation;
 
 class Users extends \Phalcon\Mvc\Model
 {
@@ -69,8 +70,6 @@ class Users extends \Phalcon\Mvc\Model
             if (strcmp($this->password, $this->confirmation) !== 0) {
                 $this->_errorMessages[] = new Message('Confirmation must be the same Password', 'password', 'Hash');
             }
-        } else {
-            $this->_errorMessages[] = new Message('Confirmation is required', 'confirmation', 'Hash');
         }
         return $this->validationHasFailed() != true;
     }
@@ -79,6 +78,20 @@ class Users extends \Phalcon\Mvc\Model
     {
         $this->created = date('Y-m-d H:i:s');
         $this->status = self::STATUS_USER;
+    }
+
+    public function initialize()
+    {
+        $this->hasMany(
+            'id',
+            'Activities',
+            'user_id',
+            [
+                'foreignKey' => [
+                    'action' => Relation::ACTION_CASCADE
+                ]
+            ]
+        );
     }
 
     public static function checkPermission()
