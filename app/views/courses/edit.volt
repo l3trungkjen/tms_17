@@ -14,13 +14,13 @@
         </div>
         <div class="form-group">
             <label for="supervisors">Supervisors</label>
-            {{ select_static('supervisor_id', supervisors, 'class': 'form-control') }}
+            {{ select_static('supervisor_id', supervisors, 'class': 'form-control', 'value': course.supervisor_id) }}
         </div>
         <div class="form-group" id="subjects">
             <label for="supervisors">Subjects</label>
             {% for course_subject in course.coursesubjects %}
                 <div class="border_subject">
-                    {{ select_static('subject_id[' ~ course_subject.id ~ ']', subjects, 'class': 'form-control') }}
+                    {{ select_static('subject_id[' ~ course_subject.id ~ ']', subjects, 'class': 'form-control', 'value': course_subject.subjects.id) }}
                 </div>
             {% endfor %}
         </div>

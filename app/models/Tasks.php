@@ -1,9 +1,6 @@
 <?php
 
-use Phalcon\Mvc\Model\Relation;
-use Phalcon\Tag;
-
-class Supervisors extends ModelBase
+class Tasks extends ModelBase
 {
 
     /**
@@ -11,6 +8,12 @@ class Supervisors extends ModelBase
      * @var integer
      */
     public $id;
+
+    /**
+     *
+     * @var integer
+     */
+    public $subject_id;
 
     /**
      *
@@ -25,22 +28,14 @@ class Supervisors extends ModelBase
     {
         return [
             'id' => 'id',
+            'subject_id' => 'subject_id',
             'name' => 'name'
         ];
     }
 
     public function initialize()
     {
-        $this->hasMany(
-            'id',
-            'Courses',
-            'supervisor_id',
-            [
-                'foreignKey' => [
-                    'action' => Relation::ACTION_CASCADE
-                ]
-            ]
-        );
+        $this->belongsTo('subject_id', 'Subjects', 'id');
     }
 
 }

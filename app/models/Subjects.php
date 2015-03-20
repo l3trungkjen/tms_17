@@ -3,7 +3,7 @@
 use Phalcon\Mvc\Model\Relation;
 use Phalcon\Tag;
 
-class Supervisors extends ModelBase
+class Subjects extends ModelBase
 {
 
     /**
@@ -33,8 +33,18 @@ class Supervisors extends ModelBase
     {
         $this->hasMany(
             'id',
-            'Courses',
-            'supervisor_id',
+            'CourseSubjects',
+            'subject_id',
+            [
+                'foreignKey' => [
+                    'action' => Relation::ACTION_CASCADE
+                ]
+            ]
+        );
+        $this->hasMany(
+            'id',
+            'Tasks',
+            'subject_id',
             [
                 'foreignKey' => [
                     'action' => Relation::ACTION_CASCADE

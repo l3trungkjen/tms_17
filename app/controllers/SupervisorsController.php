@@ -40,7 +40,11 @@ class SupervisorsController extends ControllerBase
         if (empty($id)) {
             return $this->response->redirect('supervisors');
         }
-        $this->view->supervisor = Supervisors::findFirst($id);
+        $supervisor = Supervisors::findFirst($id);
+        if (empty($supervisor)) {
+            return $this->response->redirect('supervisors');
+        }
+        $this->view->supervisor = $supervisor;
     }
 
     public function saveAction()
